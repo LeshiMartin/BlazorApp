@@ -1,0 +1,28 @@
+﻿<div class="form-floating mb-3">
+	<input type="text"
+				 value="@Value"
+				 @onchange="@((v)=> ValueChanged(v))"
+				 class="form-control"
+				 id="@For" placeholder="@Label">
+	<label for="@For">@Label</label>
+</div>
+@code {
+	[Parameter]
+	public string Label { get; set; } = "Label";
+
+	[Parameter]
+	public string For { get; set; } = Guid.NewGuid ().ToString ();
+
+	[Parameter]
+	public string Value { get; set; } = "";
+
+	[Parameter]
+	public EventCallback<string> OnValueChange { get; set; }
+
+	internal async Task ValueChanged ( ChangeEventArgs val )
+	{
+		Value = val.Value as string ?? Value;
+		await OnValueChange.InvokeAsync (Value);
+	}
+
+}

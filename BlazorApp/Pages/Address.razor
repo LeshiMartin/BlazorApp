@@ -1,0 +1,25 @@
+﻿@page "/"
+@layout MainLayout
+
+<h3>Welcome</h3>
+<h4>
+	Your address is
+</h4>
+
+
+<TextInput For="Country"
+					 OnValueChange="@(v => IpInfo.Country = v)"
+					 Label="Country"
+					 Value="@IpInfo.Country"></TextInput>
+<TextInput For="City"
+					 OnValueChange="@(v => IpInfo.City = v)"
+					 Label="City"
+					 Value="@IpInfo.City"></TextInput>
+<TextInput For="Region"
+					 OnValueChange="@(v => IpInfo.Region = v)"
+					 Label="Region"
+					 Value="@IpInfo.Region"></TextInput>
+<TextInput For="Postal"
+					 OnValueChange="@(v => IpInfo.Postal = v)"
+					 Label="Postal"
+					 Value="@IpInfo.Postal"></TextInput>
