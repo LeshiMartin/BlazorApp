@@ -1,0 +1,23 @@
+﻿@page "/"
+@using BlazorApp.Models
+@layout MainLayout
+
+<h3>Register</h3>
+
+<TextInput Label="First Name"
+					 For="FirstName"
+					 Value="@AddressModel.FirstName"
+					 OnValueChange="@(v=> AddressModel.FirstName= v)"></TextInput>
+<TextInput Label="Last Name"
+					 For="LastName"
+					 Value="@AddressModel.LastName"
+					 OnValueChange="@(v=> AddressModel.LastName= v)"></TextInput>
+
+<AddressComponentForUSA RegisterModel=@AddressModel.RegisterModel
+												OnRegisterModelChanged="@(m => AddressModel.RegisterModel=m)">
+</AddressComponentForUSA>
+
+
+@code {
+	public AddressModel AddressModel { get; set; } = new AddressModel ();
+}

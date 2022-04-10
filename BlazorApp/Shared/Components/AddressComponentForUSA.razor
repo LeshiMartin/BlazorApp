@@ -1,12 +1,9 @@
-﻿@page "/"
-@layout MainLayout
+﻿
 
-<h3>Welcome</h3>
-<h4>
-	Your address is
-</h4>
-
-
+<fieldset>
+<legend>
+	Address
+</legend>
 <TextInput For="Country"
 					 OnValueChange="@(v => IpInfo.Country = v)"
 					 Label="Country"
@@ -23,3 +20,4 @@
 					 OnValueChange="@(v => IpInfo.Postal = v)"
 					 Label="Postal"
 					 Value="@IpInfo.Postal"></TextInput>
+</fieldset>

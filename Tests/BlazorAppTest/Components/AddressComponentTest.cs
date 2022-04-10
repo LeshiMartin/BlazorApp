@@ -1,5 +1,4 @@
 ﻿using BlazorApp.Models;
-using BlazorApp.Pages;
 using BlazorApp.Services;
 using BlazorApp.Shared.Components;
 using Bunit;
@@ -35,7 +34,7 @@ public class AddressComponentTest
   [TestCase]
   public void Verify_Address_Component_Is_Rendered ()
   {
-    var component = ctx.RenderComponent<Address> ();
+    var component = ctx.RenderComponent<AddressComponentForUSA> ();
     component.Should ().NotBeNull ();
   }
 
@@ -44,7 +43,7 @@ public class AddressComponentTest
   public void Verify_Address_Component_Has_Four_Text_Inputs ()
   {
 
-    var component = ctx.RenderComponent<Address> ();
+    var component = ctx.RenderComponent<AddressComponentForUSA> ();
     var textInputs = component.FindComponents<TextInput> ();
     textInputs.Should ().HaveCount (4);
   }
@@ -52,8 +51,27 @@ public class AddressComponentTest
   [TestCase]
   public void Verify_All_TextInputs_DoesnT_Have_Default_Values ()
   {
-    var component = ctx.RenderComponent<Address> ();
+    var component = ctx.RenderComponent<AddressComponentForUSA> ();
     var textInputs = component.FindComponents<TextInput> ();
     textInputs.All (x => !string.IsNullOrEmpty (x.Instance.Value)).Should ().BeTrue ();
+  }
+
+  [TestCase]
+  public void Verify_Address_Component_RegisterModel_Has_Value ()
+  {
+    var component = ctx.RenderComponent<AddressComponentForUSA> ();
+    component.Instance.RegisterModel.City.Should ().Be ("City");
+    component.Instance.RegisterModel.Country.Should ().Be ("Country");
+    component.Instance.RegisterModel.Region.Should ().Be ("Region");
+    component.Instance.RegisterModel.Postal.Should ().Be ("Postal");
+  }
+
+  [TestCase]
+  public void Verify_Address_Will_CallNotification_When_RegisterModel_Value_Changes ()
+  {
+    var notificationCalled = false;
+    var component = ctx.RenderComponent<AddressComponentForUSA> (p => p.Add (x => x.OnRegisterModelChanged, x => notificationCalled = true));
+    component.Instance.RegisterModel.City = "New City";
+    notificationCalled.Should ().BeTrue ();
   }
 }
